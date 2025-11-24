@@ -25,7 +25,7 @@ class ArtworkController extends Controller
             'description' => 'nullable',
             'media_path' => 'required',
         ]);
-        $validated['user_id'] = auth()->id(); // Pastikan sudah login
+        $validated['user_id'] = auth()->id(); // Pastikan sudah login yaa
 
         Artwork::create($validated);
 

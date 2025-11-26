@@ -1,17 +1,17 @@
 <?php
-// app/Http/Middleware/IsAdmin.php
+// app/Http/Middleware/IsMember.php
 
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 
-class IsAdmin
+class IsMember
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || !auth()->user()->isAdmin()) {
-            abort(403, 'Admin access required.');
+        if (!auth()->check() || !auth()->user()->isMember()) {
+            abort(403, 'Member access required.');
         }
         return $next($request);
     }

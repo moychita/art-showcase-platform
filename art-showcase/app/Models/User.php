@@ -1,50 +1,84 @@
 <?php
+// app/Models/User.php
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MEMBER = 'member';
+    const ROLE_CURATOR = 'curator';
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'avatar',
+        'bio',
+        'external_links',
+        'status'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'external_links' => 'array',
+    ];
+
+    // Helper methods
+    public function isAdmin()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->role === self::ROLE_ADMIN;
     }
 
-    
+    public function isMember()
+    {
+        return $this->role === self::ROLE_MEMBER;
+    }
+
+    public function isCurator()
+    {
+        return $this->role === self::ROLE_CURATOR;
+    }
+
+    public function isPendingCurator()
+    {
+        return $this->role === self::ROLE_CURATOR && $this->status === 'pending';
+    }
+
+    public function artworks()
+    {
+        return $this->hasMany(Artwork::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function challenges()
+    {
+        return $this->hasMany(Challenge::class, 'curator_id');
+    }
 }

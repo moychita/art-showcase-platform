@@ -1,158 +1,164 @@
-RupaRupi - Platform Showcase Seni Digital
+# 🎨 RupaRupi – Platform Showcase Seni Digital
 
-RupaRupi adalah platform showcase karya seni digital yang dirancang khusus untuk komunitas pecinta seni. Platform ini menjadi wadah bagi kreator untuk membangun portofolio, mengikuti kompetisi (Challenge), dan terhubung dengan kurator profesional serta audiens yang lebih luas.
+**RupaRupi** adalah platform showcase karya seni digital yang dirancang untuk komunitas pecinta seni. Platform ini menjadi wadah bagi kreator untuk membangun portofolio, mengikuti kompetisi (Challenge), serta terhubung dengan kurator profesional dan audiens yang lebih luas.
 
-🌟 Fitur Utama
+---
 
-Aplikasi ini memiliki 4 peran pengguna (Role) dengan hak akses yang berbeda:
+## 🌟 Fitur Utama
 
-1. 🎨 Member (Kreator)
+Aplikasi ini memiliki **4 peran pengguna (Role)** dengan hak akses berbeda:
 
-Manajemen Karya: Upload karya seni dengan fitur Drag & Drop, edit detail, dan hapus karya.
+---
 
-Interaksi: Memberikan Like, menyimpan ke Favorites, dan berkomentar pada karya orang lain (menggunakan AJAX tanpa reload).
+### 1. 🎨 Member (Kreator)
+- **Manajemen Karya**: Upload karya (Drag & Drop), edit detail, dan hapus karya.
+- **Interaksi**: Like, Favorite, dan Comment.
+- **Profil & Portofolio**: Halaman profil publik berisi galeri karya pribadi.
+- **Partisipasi Challenge**: Submit karya pada challenge yang sedang aktif.
+- **Pelaporan**: Melaporkan karya atau komentar yang melanggar aturan.
 
-Profil & Portofolio: Halaman profil publik yang menampilkan galeri karya pribadi.
+---
 
-Partisipasi Challenge: Mengikuti kompetisi yang sedang aktif dengan mensubmit karya secara langsung.
+### 2. 🏆 Curator (Kurator)
+- **Manajemen Challenge**: Membuat, mengedit, dan menghapus kompetisi seni.
+- **Review Submisi**: Melihat seluruh karya yang didaftarkan peserta.
+- **Pemilihan Pemenang**: Menentukan pemenang (otomatis mendapat badge “Juara”).
+- **Dashboard Kurator**: Statistik ringkas challenge aktif dan total submisi.
 
-Pengaturan Akun: Mengubah profil biodata, avatar, tautan media sosial, serta keamanan akun (email/password).
+---
 
-Pelaporan: Melaporkan konten (karya/komentar) yang melanggar aturan.
+### 3. 🛡️ Admin (Administrator)
+- **Manajemen Pengguna**: Melihat user, mengubah role, blokir, atau hapus pengguna.
+- **Moderasi Konten**: Melihat laporan pelanggaran dan melakukan tindakan (take down atau tolak laporan).
+- **Approval Kurator**: Menyetujui registrasi akun kurator.
+- **Manajemen Kategori**: Tambah/edit/hapus kategori seni (Fotografi, Ilustrasi, UI/UX, dll).
+- **Dashboard Statistik**: Ringkasan data global platform.
 
-2. 🏆 Curator (Kurator)
+---
 
-Manajemen Challenge: Membuat, mengedit, dan menghapus kompetisi seni.
+### 4. 👤 Guest (Pengunjung)
+- **Eksplorasi**: Melihat galeri karya dan detail challenge.
+- **Search & Filter**: Mencari karya berdasarkan judul atau kategori.
 
-Review Submisi: Melihat galeri karya yang didaftarkan peserta pada sebuah challenge.
+---
 
-Pemilihan Pemenang: Memilih pemenang dari challenge yang dibuat. Pemenang akan mendapatkan badge "Juara" otomatis.
+## 🛠️ Teknologi yang Digunakan
+- **Backend**: Laravel 10/11 (PHP)
+- **Frontend**: Blade Templates
+- **Styling**: Tailwind CSS
+- **Database**: MySQL
+- **Scripting**: Vanilla JavaScript (AJAX Like/Favorite & Image Preview)
 
-Dashboard Kurator: Statistik ringkas mengenai challenge aktif dan total submisi.
+---
 
-3. 🛡️ Admin (Administrator)
+## 🚀 Panduan Instalasi
 
-Manajemen Pengguna: Melihat daftar user, mengubah role, dan memblokir/menghapus pengguna.
+Ikuti langkah-langkah berikut untuk menjalankan proyek di komputer lokal Anda.
 
-Moderasi Konten: Menerima laporan pelanggaran dan mengambil tindakan (Take Down karya/komentar atau tolak laporan).
+---
 
-Approval Kurator: Menyetujui pendaftaran akun Curator baru.
+### 🔧 Prasyarat
+- PHP ≥ 8.1  
+- Composer  
+- Node.js & NPM  
+- MySQL  
 
-Manajemen Kategori: Menambah, mengedit, dan menghapus kategori seni (misal: Fotografi, UI/UX, Ilustrasi).
+---
 
-Dashboard Statistik: Melihat ringkasan data keseluruhan platform.
-
-4. 👤 Guest (Pengunjung)
-
-Eksplorasi: Melihat galeri karya dan detail challenge.
-
-Search & Filter: Mencari karya berdasarkan judul atau kategori.
-
-🛠️ Teknologi yang Digunakan
-
-Backend: Laravel 10/11 (PHP)
-
-Frontend: Blade Templates
-
-Styling: Tailwind CSS (Modern UI/UX)
-
-Database: MySQL
-
-Scripting: Vanilla JavaScript (untuk AJAX Like/Favorite & Image Preview)
-
-🚀 Panduan Instalasi
-
-Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal Anda:
-
-Prasyarat
-
-PHP >= 8.1
-
-Composer
-
-Node.js & NPM
-
-MySQL
-
-Langkah-langkah
-
-Clone Repositori
-
-git clone [https://github.com/username/ruparupi.git](https://github.com/username/ruparupi.git)
+### 📥 1. Clone Repositori
+```bash
+git clone https://github.com/username/ruparupi.git
 cd ruparupi
+```
 
+---
 
-Install Dependencies
-Install paket PHP dan JavaScript yang dibutuhkan.
+### 📦 2. Install Dependencies
 
+**Composer**
+```bash
 composer install
+```
+
+**NPM**
+```bash
 npm install
+```
 
+---
 
-Konfigurasi Environment
-Salin file .env.example menjadi .env dan atur konfigurasi database.
-
+### ⚙️ 3. Konfigurasi Environment
+Salin file `.env.example` menjadi `.env`:
+```bash
 cp .env.example .env
+```
 
-
-Buka file .env dan sesuaikan:
-
+Atur konfigurasi database:
+```
 DB_DATABASE=nama_database_kamu
 DB_USERNAME=root
 DB_PASSWORD=
+```
 
+---
 
-Generate Key & Migrasi Database
-
+### 🔑 4. Generate Key & Migrasi Database
+```bash
 php artisan key:generate
 php artisan migrate:fresh
+```
 
+Jika menggunakan seeder:
+```bash
+php artisan db:seed
+```
 
-(Opsional: Jika Anda memiliki seeder, jalankan php artisan db:seed)
+---
 
-Link Storage (PENTING)
-Agar gambar yang diupload bisa muncul, jalankan perintah ini:
-
+### 🖼️ 5. Link Storage (Wajib)
+Agar file gambar tampil di web:
+```bash
 php artisan storage:link
+```
 
+---
 
-Jalankan Aplikasi
-Buka dua terminal terpisah untuk menjalankan server Laravel dan Vite (untuk aset).
+## ▶️ 6. Jalankan Aplikasi
 
-Terminal 1:
-
+**Terminal 1 — Laravel Server**
+```bash
 php artisan serve
+```
 
-
-Terminal 2:
-
+**Terminal 2 — Vite**
+```bash
 npm run dev
+```
 
+Akses aplikasi melalui:  
+👉 http://127.0.0.1:8000
 
-Akses Website
-Buka browser dan kunjungi: http://127.0.0.1:8000
+---
 
-📝 Catatan Penggunaan (User Roles)
+## 📝 Catatan Penggunaan (User Roles)
 
-Karena fitur register Admin ditiadakan demi keamanan, Anda perlu membuat akun Admin secara manual melalui database atau Seeder.
+### 🔐 Membuat Admin Secara Manual
+Karena tidak ada fitur register admin:
 
-Cara Membuat Admin Manual:
+1. Register akun baru (role: Member).  
+2. Buka **phpMyAdmin** → tabel `users`.  
+3. Ubah kolom `role` menjadi `admin`.  
 
-Register akun baru via halaman /register (pilih role Member).
+---
 
-Buka database (phpMyAdmin), cari tabel users.
+### 🧾 Alur Pendaftaran Kurator
+1. User memilih role **Curator** saat registrasi.  
+2. Status awal: **pending**.  
+3. Admin login → Dashboard Admin → Approve kurator.  
+4. Setelah disetujui, akun kurator dapat mengakses dashboard.
 
-Ubah kolom role user tersebut menjadi admin.
+---
 
-Alur Pendaftaran Kurator:
-
-User mendaftar dengan memilih role "Curator".
-
-Status akun akan menjadi pending (tidak bisa akses dashboard).
-
-Admin harus login, masuk ke Dashboard Admin, dan menyetujui (Approve) akun tersebut.
-
-🎨 Credits
-
-Dikembangkan sebagai Individual Project untuk mata kuliah Pemrograman Web.
+## 🎨 Credits
+Dikembangkan sebagai **Individual Project** untuk mata kuliah *Pemrograman Web*.  
 Terinspirasi oleh desain modern Suntrix & Dribbble.

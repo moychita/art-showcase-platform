@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <!-- Right Content (Visual Grid - Ala Suntrix) -->
+            <!-- Right Content (Visual Grid - Abstract Gradients) -->
             <div class="lg:col-span-6 relative hidden lg:block">
                 <!-- Decorative Blur -->
                 <div class="absolute -top-12 -right-12 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
@@ -56,29 +56,44 @@
                 <div class="grid grid-cols-2 gap-4">
                     <!-- Column 1 -->
                     <div class="space-y-4 pt-12">
-                        <div class="relative overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-[3/4] group">
-                            <!-- Placeholder Image 1 -->
-                            <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1000&auto=format&fit=crop" class="h-full w-full object-cover transition duration-500 group-hover:scale-110" alt="Art 1">
+                        <!-- Art 1: Gradient Biru-Ungu -->
+                        <div class="relative overflow-hidden rounded-2xl shadow-lg aspect-[3/4] group">
+                            <div class="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 transition duration-500 group-hover:scale-110"></div>
+                            <!-- Pola Dekoratif -->
+                            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 20px 20px;"></div>
+                            
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-                                <span class="text-white font-medium text-sm">Digital Art</span>
+                                <span class="text-white font-medium text-sm">Abstract Flow</span>
                             </div>
                         </div>
-                        <div class="relative overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-square group">
-                            <!-- Placeholder Image 2 -->
-                            <img src="https://images.unsplash.com/photo-1579783902614-a3fb39279c0f?q=80&w=1000&auto=format&fit=crop" class="h-full w-full object-cover transition duration-500 group-hover:scale-110" alt="Art 2">
+                        
+                        <!-- Art 2: Gradient Orange-Merah -->
+                        <div class="relative overflow-hidden rounded-2xl shadow-lg aspect-square group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-orange-400 to-pink-600 transition duration-500 group-hover:scale-110"></div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-30">
+                                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                            </div>
                         </div>
                     </div>
+                    
                     <!-- Column 2 -->
                     <div class="space-y-4">
-                        <div class="relative overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-square group">
-                            <!-- Placeholder Image 3 -->
-                            <img src="https://images.unsplash.com/photo-1620641788421-7f1c91ade639?q=80&w=1000&auto=format&fit=crop" class="h-full w-full object-cover transition duration-500 group-hover:scale-110" alt="Art 3">
+                        <!-- Art 3: Gradient Hijau-Teal -->
+                        <div class="relative overflow-hidden rounded-2xl shadow-lg aspect-square group">
+                            <div class="absolute inset-0 bg-gradient-to-bl from-emerald-400 to-cyan-600 transition duration-500 group-hover:scale-110"></div>
+                             <div class="absolute top-0 right-0 p-4 opacity-30">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+                            </div>
                         </div>
-                        <div class="relative overflow-hidden rounded-2xl shadow-lg bg-gray-100 aspect-[3/4] group">
-                            <!-- Placeholder Image 4 -->
-                            <img src="https://images.unsplash.com/photo-1558655146-d09347e0b7a9?q=80&w=1000&auto=format&fit=crop" class="h-full w-full object-cover transition duration-500 group-hover:scale-110" alt="Art 4">
+                        
+                        <!-- Art 4: Gradient Pink-Gelap -->
+                        <div class="relative overflow-hidden rounded-2xl shadow-lg aspect-[3/4] group">
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-800 to-fuchsia-500 transition duration-500 group-hover:scale-110"></div>
+                            <!-- Garis-garis -->
+                            <div class="absolute inset-0 opacity-10" style="background: repeating-linear-gradient(45deg, transparent, transparent 10px, #fff 10px, #fff 11px);"></div>
+                            
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-                                <span class="text-white font-medium text-sm">Photography</span>
+                                <span class="text-white font-medium text-sm">Modern Vibes</span>
                             </div>
                         </div>
                     </div>
@@ -88,7 +103,7 @@
     </div>
 </section>
 
-<!-- Features Section (Clean Card Style) -->
+<!-- Features Section -->
 <section class="py-20 bg-gray-50">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -131,7 +146,6 @@
 <section class="py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="relative overflow-hidden rounded-3xl bg-dark px-6 py-20 shadow-2xl sm:px-12 sm:py-24 md:px-16 lg:px-24">
-            <!-- Decorative Gradient -->
             <div class="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-primary opacity-20 blur-3xl"></div>
             <div class="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-secondary opacity-20 blur-3xl"></div>
             

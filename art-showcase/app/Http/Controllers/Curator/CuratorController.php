@@ -135,27 +135,28 @@ class CuratorController extends Controller
     // 8. Memilih Pemenang
     public function selectWinner(Request $request, Challenge $challenge)
     {
-        // Keamanan: Cek kepemilikan
+        // 1. Cek apakah user yang login adalah pemilik challenge ini
         if ($challenge->curator_id !== auth()->id()) {
-            abort(403);
+            abort(403, 'Unauthorized action.');
         }
 
+        // 2. Validasi input (ID artwork yang dipilih)
         $validated = $request->validate([
             'winner_artwork_id' => 'required|exists:artworks,id',
         ]);
 
-        // Verifikasi apakah karya tersebut benar-benar peserta challenge ini
+        // 3. Verifikasi bahwa karya tersebut benar-benar disubmit untuk challenge ini
         $artwork = Artwork::where('id', $validated['winner_artwork_id'])
             ->where('challenge_id', $challenge->id)
             ->firstOrFail();
 
-        // Update pemenang & tutup challenge
+        // 4. Update data challenge
         $challenge->winner_artwork_id = $artwork->id;
-        $challenge->status = 'closed';
+        $challenge->status = 'closed'; // Otomatis tutup challenge setelah ada pemenang
         $challenge->save();
 
         return redirect()->route('curator.challenges.show', $challenge)
-            ->with('success', 'Pemenang telah dipilih! Challenge resmi ditutup.');
+            ->with('success', 'Pemenang challenge berhasil dipilih!');
     }
 
     // 9. Hapus Challenge (Destroy)

@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Storage;
 
 class CuratorController extends Controller
 {
+    // 1. Dashboard Utama Curator
     public function dashboard()
     {
         $curator = auth()->user();
         
+        // Mengambil statistik untuk ditampilkan di dashboard
         $stats = [
             'total_challenges' => $curator->challenges()->count(),
             'active_challenges' => $curator->challenges()->where('status', 'active')->count(),
@@ -21,6 +23,7 @@ class CuratorController extends Controller
             'total_submissions' => Artwork::whereIn('challenge_id', $curator->challenges()->pluck('id'))->count(),
         ];
 
+        // List challenge terbaru (limit 5) untuk dashboard
         $challenges = $curator->challenges()
             ->with(['artworks', 'winner'])
             ->latest()
@@ -29,16 +32,23 @@ class CuratorController extends Controller
         return view('curator.dashboard', compact('stats', 'challenges'));
     }
 
-    // --- 1. TAMPILKAN FORMULIR ---
+    // 2. Halaman List Semua Challenge
+    public function challenges()
+    {
+        // Redirect ke dashboard saja karena di sana sudah ada list challenge
+        return redirect()->route('curator.dashboard');
+    }
+
+    // 3. Form Upload Challenge (Create)
     public function createChallenge()
     {
-        // Ini yang memanggil view 'curator.challenges.create'
         return view('curator.challenges.create');
     }
 
-    // --- 2. PROSES SIMPAN DATA ---
+    // 4. Proses Simpan Challenge Baru (Store)
     public function storeChallenge(Request $request)
     {
+        // Validasi input
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -47,6 +57,7 @@ class CuratorController extends Controller
             'end_date' => 'required|date|after:start_date',
         ]);
 
+        // Upload Gambar Banner (jika ada)
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('challenges', 'public');
         }
@@ -60,30 +71,43 @@ class CuratorController extends Controller
         return redirect()->route('curator.dashboard')->with('success', 'Challenge berhasil dibuat!');
     }
 
-    // ... (Sisa method showChallenge, editChallenge, dll tetap sama) ...
-    
+    // 5. Detail Challenge & Submisi (PERBAIKAN VARIABEL $submissions)
     public function showChallenge(Challenge $challenge)
     {
-        if ($challenge->curator_id !== auth()->id()) abort(403);
-        
-        $artworks = $challenge->artworks()
+        // Keamanan: Pastikan challenge ini milik curator yang sedang login
+        if ($challenge->curator_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Ambil semua karya yang disubmit ke challenge ini
+        $submissions = $challenge->artworks()
             ->with(['user', 'likes'])
-            ->where('status', 'approved')
+            ->where('status', 'approved') // Hanya tampilkan yang sudah diapprove admin
             ->latest()
             ->paginate(12);
 
-        return view('curator.challenges.show', compact('challenge', 'artworks'));
+        // Kirim dengan nama variabel 'submissions' agar sesuai view
+        return view('curator.challenges.show', compact('challenge', 'submissions'));
     }
 
+    // 6. Form Edit Challenge
     public function editChallenge(Challenge $challenge)
     {
-        if ($challenge->curator_id !== auth()->id()) abort(403);
+        // Keamanan: Cek kepemilikan
+        if ($challenge->curator_id !== auth()->id()) {
+            abort(403);
+        }
+
         return view('curator.challenges.edit', compact('challenge'));
     }
 
+    // 7. Proses Update Challenge
     public function updateChallenge(Request $request, Challenge $challenge)
     {
-        if ($challenge->curator_id !== auth()->id()) abort(403);
+        // Keamanan: Cek kepemilikan
+        if ($challenge->curator_id !== auth()->id()) {
+            abort(403);
+        }
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -94,34 +118,52 @@ class CuratorController extends Controller
             'status' => 'required|in:draft,active,closed',
         ]);
 
+        // Cek jika ada upload gambar baru
         if ($request->hasFile('image')) {
-            if ($challenge->image) Storage::disk('public')->delete($challenge->image);
+            // Hapus gambar lama agar hemat storage
+            if ($challenge->image) {
+                Storage::disk('public')->delete($challenge->image);
+            }
             $validated['image'] = $request->file('image')->store('challenges', 'public');
         }
 
         $challenge->update($validated);
 
-        return redirect()->route('curator.challenges.show', $challenge)->with('success', 'Challenge diperbarui!');
+        return redirect()->route('curator.challenges.show', $challenge)->with('success', 'Challenge berhasil diperbarui!');
     }
 
+    // 8. Memilih Pemenang
     public function selectWinner(Request $request, Challenge $challenge)
     {
-        if ($challenge->curator_id !== auth()->id()) abort(403);
-        
-        $validated = $request->validate(['winner_artwork_id' => 'required|exists:artworks,id']);
-        
-        $challenge->winner_artwork_id = $validated['winner_artwork_id'];
+        // Keamanan: Cek kepemilikan
+        if ($challenge->curator_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'winner_artwork_id' => 'required|exists:artworks,id',
+        ]);
+
+        // Verifikasi apakah karya tersebut benar-benar peserta challenge ini
+        $artwork = Artwork::where('id', $validated['winner_artwork_id'])
+            ->where('challenge_id', $challenge->id)
+            ->firstOrFail();
+
+        // Update pemenang & tutup challenge
+        $challenge->winner_artwork_id = $artwork->id;
         $challenge->status = 'closed';
         $challenge->save();
 
-        return redirect()->route('curator.challenges.show', $challenge)->with('success', 'Pemenang dipilih!');
+        return redirect()->route('curator.challenges.show', $challenge)
+            ->with('success', 'Pemenang telah dipilih! Challenge resmi ditutup.');
     }
 
-    public function destroy(\App\Models\Challenge $challenge)
+    // 9. Hapus Challenge (Destroy)
+    public function destroy(Challenge $challenge)
     {
-        // Pastikan hanya pemilik yang bisa hapus
+        // Keamanan: Cek kepemilikan
         if ($challenge->curator_id !== auth()->id()) {
-            abort(403);
+            abort(403, 'Unauthorized action.');
         }
 
         // Hapus gambar banner jika ada
@@ -129,6 +171,7 @@ class CuratorController extends Controller
             Storage::disk('public')->delete($challenge->image);
         }
 
+        // Hapus data dari database
         $challenge->delete();
 
         return redirect()->route('curator.dashboard')->with('success', 'Challenge berhasil dihapus!');

@@ -1,5 +1,4 @@
 <?php
-// app/Models/User.php
 
 namespace App\Models;
 
@@ -36,7 +35,8 @@ class User extends Authenticatable
         'external_links' => 'array',
     ];
 
-    // Helper methods
+    // --- HELPER METHODS ---
+    
     public function isAdmin()
     {
         return $this->role === self::ROLE_ADMIN;
@@ -56,6 +56,8 @@ class User extends Authenticatable
     {
         return $this->role === self::ROLE_CURATOR && $this->status === 'pending';
     }
+
+    // --- RELATIONSHIPS (HUBUNGAN DATABASE) ---
 
     public function artworks()
     {
@@ -77,6 +79,7 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    // PENTING: Ini yang menghubungkan Curator ke Challenge buatannya
     public function challenges()
     {
         return $this->hasMany(Challenge::class, 'curator_id');

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Member;
 
+use App\Http\Controllers\Controller;
 use App\Models\Artwork;
 use App\Models\Like;
 use Illuminate\Http\Request;

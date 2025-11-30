@@ -79,7 +79,7 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    // PENTING: Ini yang menghubungkan Curator ke Challenge buatannya
+    // --- PASTIKAN KODE INI ADA ---
     public function challenges()
     {
         return $this->hasMany(Challenge::class, 'curator_id');

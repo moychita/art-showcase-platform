@@ -189,4 +189,18 @@
         </div>
     </div>
 </div>
+
+<div class="flex justify-end gap-3">
+    <a href="{{ route('curator.challenges.show', $challenge) }}" class="text-primary hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition">Detail</a>
+    <a href="{{ route('curator.challenges.edit', $challenge) }}" class="text-gray-500 hover:text-gray-700 bg-gray-50 hover:bg-gray-100 px-3 py-1.5 rounded-lg transition">Edit</a>
+    
+    <!-- TOMBOL HAPUS BARU -->
+    <form action="{{ route('curator.challenges.destroy', $challenge) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus challenge ini? Semua karya di dalamnya juga akan terhapus.');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition">
+            Hapus
+        </button>
+    </form>
+</div>
 @endsection
